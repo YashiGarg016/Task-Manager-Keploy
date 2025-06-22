@@ -2,6 +2,8 @@
 
 A simple RESTful API for managing tasks, built with Node.js, Express, and MongoDB (using Mongoose). This API supports full CRUD operations and is easy to run locally.
 
+For documentaion of testing, please refer README_API.md.
+
 ---
 
 ## 📋 API Endpoints & Functionality
