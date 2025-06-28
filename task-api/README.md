@@ -170,3 +170,9 @@ Whether you're a newbie coder or a wizard 🧙‍♀️, your perspective is gol
 ⚙️ [Installation Guide](https://keploy.io/docs/application-development/)
 
 📖 [Contribution Guide](https://keploy.io/docs/keploy-explained/contribution-guide/)
+
+echo "# CI trigger" >> README.md
+git add README.md
+git commit -m "Trigger CI workflow run"
+git push origin api-testing-ai
+"# CI trigger" 
