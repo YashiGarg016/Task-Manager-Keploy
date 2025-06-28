@@ -30,9 +30,9 @@ jobs:
 
       - name: 🧪 Install Keploy CLI v0.1.5 (Verified Binary)
         run: |
-          curl -LO https://github.com/keploy/keploy/releases/download/v0.1.5/keploy_linux_amd64
-          chmod +x keploy_linux_amd64
-          sudo mv keploy_linux_amd64 /usr/local/bin/keploy
+          curl -LO https://github.com/keploy/keploy/releases/download/v0.1.5/keploy-linux-amd64
+          chmod +x keploy-linux-amd64
+          sudo mv keploy-linux-amd64 /usr/local/bin/keploy
 
       - name: 🚀 Start Express App
         run: |
