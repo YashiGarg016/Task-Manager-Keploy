@@ -28,9 +28,9 @@ jobs:
           cd task-api
           npm install
 
-      - name: 🧪 Install Keploy CLI
+      - name: 🧪 Install Keploy CLI v0.1.6
         run: |
-          curl -LO https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz
+          curl -LO https://github.com/keploy/keploy/releases/download/v0.1.6/keploy_linux_amd64.tar.gz
           tar -xzf keploy_linux_amd64.tar.gz
           chmod +x keploy
           sudo mv keploy /usr/local/bin/
