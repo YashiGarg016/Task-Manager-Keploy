@@ -3,7 +3,19 @@ const mongoose = require('mongoose');
 const Task = require('./Task');
 
 const app = express();
+
+// ✅ Add body parsers for both JSON and form-urlencoded
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// ✅ Catch invalid JSON and respond cleanly
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    console.error('Invalid JSON:', err.message);
+    return res.status(400).json({ error: 'Invalid JSON payload' });
+  }
+  next();
+});
 
 async function connectDB(uri) {
   await mongoose.connect(uri);
@@ -55,3 +67,10 @@ app.use((req, res) => {
 });
 
 module.exports = { app, connectDB };
+
+const PORT = process.env.PORT || 3000;
+connectDB('mongodb://localhost:27017/tasksDB').then(() => {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server is running on http://localhost:${PORT}`);
+  });
+});

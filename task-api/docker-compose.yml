@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  task-api:
+    build: .
+    container_name: task-api
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    command: node server.js
+    networks:
+      - keploy-net
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/tasksDB
+    labels:
+      - keploy/instrument=true
+
+  mongodb:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - keploy-net
+
+  keploy:
+    image: ghcr.io/keploy/keploy:v2.6.14
+    container_name: keploy
+    depends_on:
+      - task-api
+    environment:
+      - APP_NAME=task-api
+    network_mode: service:task-api
+    command: record -c "node server.js"
+
+networks:
+  keploy-net:
