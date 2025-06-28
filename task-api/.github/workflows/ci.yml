@@ -1,5 +1,5 @@
 on:
   push:
-    branches: [ main, api-testing ]
+    branches: [ main, api-testing-ai ]
   pull_request:
-    branches: [ main, api-testing ]
+    branches: [ main, api-testing-ai ]
