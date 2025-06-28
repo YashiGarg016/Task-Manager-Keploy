@@ -31,7 +31,9 @@ jobs:
       - name: 🧪 Install Keploy CLI (official method)
         run: |
           curl --silent -O https://keploy.io/install.sh
-          source install.sh
+          bash install.sh
+          sudo mv keploy /usr/local/bin/
+
 
       - name: 🚀 Start Express App
         run: |
