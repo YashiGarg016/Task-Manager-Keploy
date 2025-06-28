@@ -1,0 +1,47 @@
+name: Run Keploy API Tests
+
+on:
+  push:
+    branches: [main, api-testing-ai]
+  pull_request:
+    branches: [main, api-testing-ai]
+
+jobs:
+  run-keploy:
+    runs-on: ubuntu-latest
+
+    env:
+      MONGO_URI: ${{ secrets.MONGO_URI }}
+      KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
+
+    steps:
+      - name: 🛒 Checkout code
+        uses: actions/checkout@v3
+
+      - name: 🧰 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: 🧪 Install Keploy CLI
+        run: |
+          curl -LO https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz
+          tar -xzf keploy_linux_amd64.tar.gz
+          chmod +x keploy
+          sudo mv keploy /usr/local/bin/
+
+      - name: 🚀 Start Express App
+        run: |
+          nohup node index.js &
+          sleep 5
+
+      - name: ☁️ Run Keploy Cloud Test Suite
+        run: |
+          export KEPLOY_API_KEY=${{ secrets.KEPLOY_API_KEY }}
+          keploy test-suite \
+            --app=55e59630-6673-40bf-9abc-4a56b37c9852 \
+            --base-path=http://localhost:3000/tasks \
+            --cloud
