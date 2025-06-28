@@ -28,11 +28,11 @@ jobs:
           cd task-api
           npm install
 
-      - name: 🛠️ Install Go and Build Keploy CLI from Source
+      - name: 🛠️ Install Go and Build Keploy CLI (cloud-mode enabled)
         run: |
           sudo apt update
           sudo apt install -y golang-go git
-          git clone https://github.com/keploy/keploy.git
+          git clone --branch cloud-mode https://github.com/keploy/keploy.git
           cd keploy
           go build -o keploy main.go
           sudo mv keploy /usr/local/bin/
