@@ -28,12 +28,17 @@ jobs:
           cd task-api
           npm install
 
-      - name: 🧪 Install Keploy CLI (official method)
+      - name: 🧪 Install Keploy CLI (safe method)
         run: |
           curl --silent -O https://keploy.io/install.sh
-          bash install.sh
-          sudo mv keploy /usr/local/bin/
-
+          bash install.sh || true
+          if [ -f ./keploy ]; then
+            chmod +x keploy
+            sudo mv keploy /usr/local/bin/
+          else
+            echo "❌ Keploy binary not found after install."
+            exit 1
+          fi
 
       - name: 🚀 Start Express App
         run: |
