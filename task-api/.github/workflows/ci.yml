@@ -1,5 +1,8 @@
-on:
-  push:
-    branches: [ main, api-testing-ai ]
-  pull_request:
-    branches: [ main, api-testing-ai ]
+- name: Install Keploy CLI
+  run: |
+    curl --silent -L https://keploy.io/ent/install.sh | bash
+
+- name: Run Keploy Test Suite
+  run: |
+    export KEPLOY_API_KEY=${{ secrets.KEPLOY_API_KEY }} 
+    keploy test-suite --app=55e59630-6673-40bf-9abc-4a56b37c9852 --base-path http://localhost:3000/tasks --cloud
