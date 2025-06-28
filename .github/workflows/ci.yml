@@ -24,7 +24,9 @@ jobs:
           node-version: 18
 
       - name: 📦 Install dependencies
-        run: npm install
+        run: |
+          cd task-api
+          npm install
 
       - name: 🧪 Install Keploy CLI
         run: |
@@ -35,11 +37,13 @@ jobs:
 
       - name: 🚀 Start Express App
         run: |
+          cd task-api
           nohup node index.js &
           sleep 5
 
       - name: ☁️ Run Keploy Cloud Test Suite
         run: |
+          cd task-api
           export KEPLOY_API_KEY=${{ secrets.KEPLOY_API_KEY }}
           keploy test-suite \
             --app=55e59630-6673-40bf-9abc-4a56b37c9852 \
